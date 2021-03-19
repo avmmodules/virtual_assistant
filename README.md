@@ -1,1 +1,3 @@
 # virtual_assistant
+![start and run](img/miniatura1.png)
+Turning on modules...
