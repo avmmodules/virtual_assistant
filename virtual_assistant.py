@@ -45,39 +45,50 @@ engine.setProperty('voice', voices[0].id)
 engine.setProperty('rate', 178)
 engine.setProperty('volume', 0.7)
 
-def getDay():
-    now = date.today().strftime("%A, %d de %B del %Y").lower()
+day_es = [line.rstrip('\n') for line in open('src/day/day_es.txt')]
+day_en = [line.rstrip('\n') for line in open('src/day/day_en.txt')]
 
-    day_es = [line.rstrip('\n') for line in open('src/day/day_es.txt')]
-    day_en = [line.rstrip('\n') for line in open('src/day/day_en.txt')]
-
+def iterateDays(now):
     for i in range(len(day_en)):
         if day_en[i] in now:
             now = now.replace(day_en[i], day_es[i])
     return now
 
-def getDaysAgo(rec):
-    rec = rec.split()
-    days = 0
+def getDay():
+    now = date.today().strftime("%A, %d de %B del %Y").lower()
+    return iterateDays(now)
 
-    for i in range(len(rec)):
-        try:
-            days = float(rec[i])
-            break
-        except:
-            pass
+def getDaysAgo(rec):
+    value =""
+    if 'ayer' in rec:
+        days = 1
+        value = 'ayer'
+    elif 'antier' in rec:
+        days = 2
+        value = 'antier'
+    else:
+        rec = rec.replace(",","")
+        rec = rec.split()
+        days = 0
+
+        for i in range(len(rec)):
+            try:
+                days = float(rec[i])
+                break
+            except:
+                pass
     
     if days != 0:
-        now = date.today() - timedelta(days=days)
-        now = now.strftime("%A, %d de %B del %Y").lower()
+        try:
+            now = date.today() - timedelta(days=days)
+            now = now.strftime("%A, %d de %B del %Y").lower()
 
-        day_es = [line.rstrip('\n') for line in open('src/day/day_es.txt')]
-        day_en = [line.rstrip('\n') for line in open('src/day/day_en.txt')]
-
-        for i in range(len(day_en)):
-            if day_en[i] in now:
-                now = now.replace(day_en[i], day_es[i])
-        return f"Hace {days} días fue {now}"
+            if value != "":
+                return f"{value} fue {iterateDays(now)}"
+            else:
+                return f"Hace {days} días fue {iterateDays(now)}"
+        except:
+            return "Aún no existíamos"
     else:
         return "No entendí"
 
