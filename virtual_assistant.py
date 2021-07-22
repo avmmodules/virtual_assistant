@@ -12,16 +12,11 @@ import spoty
 import speech_recognition as sr
 import pyttsx3
 import pywhatkit
-import urllib.request
 import json
 from datetime import datetime, date, timedelta
 import wikipedia
 import pyjokes
 from time import time
-
-# from playsound import playsound
-# playsound('/resources/audio/play.mp3')
-# https://www.youtube.com/results?search_query=avm+python&sp=EgIQAg%253D%253D
 
 start_time = time()
 engine = pyttsx3.init()
