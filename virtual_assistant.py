@@ -7,6 +7,8 @@
     Video: ?
 '''
 import AVMSpeechMath as sm
+import AVMYT as yt
+import spoty
 import speech_recognition as sr
 import pyttsx3
 import pywhatkit
@@ -134,16 +136,25 @@ while True:
             if 'spotify' in rec:
                 music = rec.replace('reproduce en spotify', '')
                 speak(f'Reproduciendo {music}')
+                spoty.play(keys["spoty_client_id"], keys["spoty_client_secret"], music)
             else:
                 music = rec.replace('reproduce', '')
                 speak(f'Reproduciendo {music}')
                 pywhatkit.playonyt(music)
+                # yt.play(music)
 
         elif 'cuantos suscriptores tiene' in rec:
             name_subs = rec.replace('cuantos suscriptores tiene', '')
-            data = urllib.request.urlopen(f'https://www.googleapis.com/youtube/v3/channels?part=statistics&forUsername={name_subs.strip()}&key={keys["youtube_key"]}').read()
-            subs = json.loads(data)["items"][0]["statistics"]["subscriberCount"]
-            speak(name_subs + " tiene {:,d}".format(int(subs)) + " suscriptores")
+            
+            speak("Procesando...")
+            while True:
+                try:
+                    channel = yt.getChannelInfo(name_subs)
+                    speak(channel["name"] + " tiene " + channel["subs"])
+                    break
+                except:
+                    speak("Volviendo a intentar...")
+                    continue
 
         elif 'que' in rec:
             if 'hora' in rec:

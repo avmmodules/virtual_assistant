@@ -16,5 +16,5 @@ july
 august
 september
 october
-novembre
+november
 december
