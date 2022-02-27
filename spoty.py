@@ -37,7 +37,7 @@ def play(client_id, client_secret, song, author = ''):
         song = song.replace(" ", "%20")
         web.open(f'spotify:search:{song}')
         sleep(5)
-        for i in range(18):
+        for i in range(27):
             pyautogui.press("tab")
 
         for i in range(2):

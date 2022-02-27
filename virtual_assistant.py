@@ -4,7 +4,7 @@
 
     Author: AlejandroV
     Version: 2.0
-    Video: ?
+    Video: https://youtu.be/Cr9O31eqXuA
 '''
 import AVMSpeechMath as sm
 import AVMYT as yt
@@ -120,8 +120,6 @@ while True:
 
     rec = rec_json['text']
     status = rec_json['status']
-
-    print(rec_json)
 
     if status:
         if 'estas ahi' in rec:
