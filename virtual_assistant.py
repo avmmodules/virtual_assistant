@@ -1,25 +1,21 @@
 '''
     Description:
     Create your own virtual assistant with Python.
-
     Author: AlejandroV
     Version: 2.0
-    Video: ?
+    Video: https://youtu.be/Cr9O31eqXuA
 '''
 import AVMSpeechMath as sm
+import AVMYT as yt
+import spoty
 import speech_recognition as sr
 import pyttsx3
 import pywhatkit
-import urllib.request
 import json
 from datetime import datetime, date, timedelta
 import wikipedia
 import pyjokes
 from time import time
-
-# from playsound import playsound
-# playsound('/resources/audio/play.mp3')
-# https://www.youtube.com/results?search_query=avm+python&sp=EgIQAg%253D%253D
 
 start_time = time()
 engine = pyttsx3.init()
@@ -124,8 +120,6 @@ while True:
     rec = rec_json['text']
     status = rec_json['status']
 
-    print(rec_json)
-
     if status:
         if 'estas ahi' in rec:
             speak('Por supuesto')
@@ -134,16 +128,25 @@ while True:
             if 'spotify' in rec:
                 music = rec.replace('reproduce en spotify', '')
                 speak(f'Reproduciendo {music}')
+                spoty.play(keys["spoty_client_id"], keys["spoty_client_secret"], music)
             else:
                 music = rec.replace('reproduce', '')
                 speak(f'Reproduciendo {music}')
                 pywhatkit.playonyt(music)
+                # yt.play(music)
 
         elif 'cuantos suscriptores tiene' in rec:
             name_subs = rec.replace('cuantos suscriptores tiene', '')
-            data = urllib.request.urlopen(f'https://www.googleapis.com/youtube/v3/channels?part=statistics&forUsername={name_subs.strip()}&key={keys["youtube_key"]}').read()
-            subs = json.loads(data)["items"][0]["statistics"]["subscriberCount"]
-            speak(name_subs + " tiene {:,d}".format(int(subs)) + " suscriptores")
+            
+            speak("Procesando...")
+            while True:
+                try:
+                    channel = yt.getChannelInfo(name_subs)
+                    speak(channel["name"] + " tiene " + channel["subs"])
+                    break
+                except:
+                    speak("Volviendo a intentar...")
+                    continue
 
         elif 'que' in rec:
             if 'hora' in rec:
