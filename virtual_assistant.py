@@ -1,9 +1,8 @@
 '''
-    Description:
-    Create your own virtual assistant with python.
+    Description: Create your own virtual assistant with python.
 
-    Author: AlejandroV
-    Version: 1.0
+    Author: aulerjbailey
+    Version: 1.0.0
     Video: https://youtu.be/8WKjX0dbh4E
 '''
 import speech_recognition as sr
