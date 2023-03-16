@@ -1,8 +1,7 @@
 '''
-    Description:
-    Create your own virtual assistant with Python.
-    Author: AlejandroV
-    Version: 2.0
+    Description: Create your own virtual assistant with Python.
+    Author: aulerjbailey
+    Version: 2.0.0
     Video: https://youtu.be/Cr9O31eqXuA
 '''
 import AVMSpeechMath as sm
