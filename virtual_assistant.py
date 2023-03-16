@@ -1,6 +1,5 @@
 '''
     Description: Create your own virtual assistant with python.
-
     Author: aulerjbailey
     Version: 1.0.0
     Video: https://youtu.be/8WKjX0dbh4E
